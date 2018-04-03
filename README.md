@@ -1,11 +1,12 @@
 ## lcfSpyderWithPy3
-lcf's  python spyder proj
+lcf's  python spider proj
 now:
-- [x] ebook spyder
-- [x] weChat spyder & analyze
+- [x] ebook spider
+- [x] weChat spider & analyze
 
 [file](https://github.com/QLWeilcf/lcfSpyderWithPy3/blob/master/weChatFriendsAnaly.py)  &
 [WeChatAnalyReadme](https://github.com/QLWeilcf/lcfSpyderWithPy3/blob/master/WeChatAnalyReadme.md)
 
-- [ ] job spyder
-- [ ] douban spyder
+- [ ] job spider
+- [ ] douban spider
+- [ ] Geo Spider
