@@ -167,6 +167,72 @@ def getAllTwo():
  
 #getAllTwo() #调用主函数
 
+### qk
+
+
+# qk的一种更好的解析方式：
+
+def postToQK(a):
+    url_sh='http://www.qk365.com//keywordsSearch.do'  #上海
+    url_hz='http://hz.qk365.com//keywordsSearch.do'
+    
+    d1={"keyword":a}
+
+    r=requests.post(url_sh,data=d1)
+    return r.text
+
+def parseQKdata(a):
+    text=postToQK(a)
+    if text=='':
+        return ('null','1')
+    else:
+        con = etree.HTML(text)
+        k=con.xpath('//li')
+        k_len=len(k)
+        for  i in range(k_len):
+            type_i=con.xpath('//li['+str(i+1)+']/div[@class="jarrow"]')
+            n_i=con.xpath('//li['+str(i+1)+']/div/a')
+            if type_i[0].text=='小区':
+                #n_text=n_i[0].text.strip(' ')
+                n_text=re.compile(r'[\u4e00-\u9fa5]+').search(n_i[0].text)[0]
+                if (n_text==a):
+                    return (n_text,'1')
+                else: #最好手动查
+                    return (n_text,'0') #返回值不同的类型
+        return ('无','2') #提示框无小区标签 原则上可以填 无
+def getQKtest2():
+
+    fpath='./sk_qk/qk_sh_15_20k.xlsx'
+    save_path='./sk_qk/qk_sh_way2_out15_20k.xls'
+
+    a3 = xlrd.open_workbook(fpath)
+    a4 = a3.sheet_by_name("Sheet1")
+    a5 = a4.col_values(0)
+    a6 = len(a5)  #行数
+    print(a6)
+    workbook = xlwt.Workbook()
+    sheet = workbook.add_sheet("Sheet1")
+    sheet.write(0, 0, 'dankName')
+    sheet.write(0, 1, 'qkName')
+    sheet.write(0,2, 'qktype')
+    for i in range(1,a6):
+        s3=a4.cell(i,4).value
+        dankName =str( s3)  #cell里填行数和列数，列数从0开始数
+        re_ss,re_t=parseQKdata(dankName.strip(' '))
+
+        sheet.write(i, 0,dankName)
+        sheet.write(i, 1, re_ss)
+        sheet.write(i, 2, re_t)
+        if i<20:
+            print(i,dankName,re_ss,re_t)
+        
+    workbook.save(save_path)
+
+
+
+
+
+
 
 # 对一些公寓租赁网站的爬虫。
 
