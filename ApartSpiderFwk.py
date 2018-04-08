@@ -229,7 +229,47 @@ def getQKtest2():
     workbook.save(save_path)
 
 
+## zhuke  zkroom
 
+def getZhuKeTest(url,nstr):
+    #url='http://www.zkroom.com/home/room/index.html?keywords=寰宇天下'
+    #nstr='寰宇天下'
+    text=getOneUrl(url)
+    if text!=-1:  #//*[@id="xqzf"]/div[2]/div/div[3]/div/div/em
+        con = etree.HTML(text)
+        rel_s = con.xpath('//*[@id="list"]/ul/li[1]/div[1]/div[2]')
+        print(rel_s)
+        if rel_s==[]:
+            return '无' #对于有特殊符号的，需要手动查
+        else:
+            re_s=rel_s[0].text
+            return compliTwoStr(re_s,nstr)
+
+    else:
+        print(nstr,'text==-1')
+        return  'text==-1'
+
+
+def compliTwoStr(a,b):
+    #a:滨江区 西兴 寰宇天下 合租房 roomC
+    #b:寰宇天下
+    #a: 滨江区 西兴 寰宇天下 合租房 roomC
+    #b:寰宇
+    a_lst=a.split(' ')
+    l_a=len(a_lst)
+    if l_a>2:
+        if b in a_lst[2]:
+            return a_lst[2]
+        elif b in a_lst[1]:
+            return a_lst[1]
+    else:
+        return '0-长度不对-手动查'
+    for c in a_lst:
+        if c==b:
+            return c
+        else:
+            print(a,a_lst,b)
+            return '1-手动'
 
 
 
