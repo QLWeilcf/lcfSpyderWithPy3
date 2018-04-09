@@ -271,6 +271,103 @@ def compliTwoStr(a,b):
             print(a,a_lst,b)
             return '1-手动'
 
+## haizhu 0409
+
+def getHizhuT(url,nstr):
+    #url='http://www.hizhu.com/Home/House/getsearchekey.html?city_code=001009001&keyword='
+    #nstr='兆嘉园'
+    d=getOneUrl(url+nstr)
+    if d==-1:
+        return 'text==-1'
+    try:
+        e=d.decode('utf-8')
+        g=json.loads(e)
+        d0=g['data']
+        re_name='无'
+        print(g)
+        for dk in d0: #type(dk)==dict
+            if dk['type_name']=='小区':
+                if dk['estate_name'] == nstr:
+                    return dk['estate_name']
+                else:
+                    re_name=praseHizhuStr(dk['estate_name'],nstr)
+                    #return '000'
+            else:
+                pass
+        return re_name
+    except:
+        print(nstr,d)
+        return '0-手动'
+
+def getHizhu(url,nstr):
+    #url='http://www.hizhu.com/Home/House/getsearchekey.html?city_code=001009001&keyword='
+    #nstr='兆嘉园'
+    d=getOneUrl(url+nstr)
+    if d==-1:
+        return 'text==-1'
+    try:
+        e=d.decode('utf-8')
+        g=json.loads(e)
+        d0=g['data']
+        if d0=='null':
+            return 'data-null'
+        #print(d0)
+        re_name='无'
+        for dk in d0: #type(dk)==dict
+            if dk['type_name']=='小区':
+                if dk['estate_name'] == nstr:
+                    return dk['estate_name']
+                else:
+                    re_name=praseHizhuStr(dk['estate_name'],nstr)
+                    #return '000'
+            else:
+                pass
+        return re_name
+    except:
+        print(nstr,d)
+        return '0-手动'
+
+def getHizhu01(url,nstr):
+    #url='http://www.hizhu.com/hangzhou/sqlist1/a0/b0/c0/d0/e0/fundefined/g0/h0/?key_self=2&key='
+    #nstr='缤纷111'
+    w='&search_id=11706d2d-bf6b-8d95-368c-600a57d068cf&type_no=0'
+    text = getOneUrl(url + nstr+w  #id 是变化的，需要结合 getHizhuT使用
+    if text != -1:
+        con = etree.HTML(text)
+        rel_s = con.xpath('/html/body/div[1]/div/div[4]/div[2]/ul/li[1]/div/div[1]/h3/a')
+        if rel_s==[]:
+            rel_s = con.xpath('/html/body/div[1]/div/div[4]/div[2]/ul/li[1]/div/div[1]/p[1]')
+        if rel_s == []:
+            rel_s = con.xpath('/html/body/div[1]/div/div[4]/div[2]/ul/li[1]/div/div[1]/h3/a')
+        if rel_s==[]:
+            print(nstr)
+            return '1-00'
+        print(rel_s)
+        re_s = rel_s[0].text
+        #print(re_s)
+        ewlst = re.split(' · ',re_s)
+        w_len=len(ewlst)
+        if w_len==1:
+            ewlst = re.split('\xa0·\xa0', re_s)
+            w_len = len(ewlst)
+            if w_len==1:
+                print(ew_s,ewlst)
+                return '1-111'
+
+        re_name='无'
+        for w in ewlst:
+            if w==nstr:
+                return w
+            elif nstr in w:
+                return w
+
+        return re_name
+
+
+    else:
+        return 'text==-1'
+### *上面haizhu那个是还不够完备的，值得优化                     
+                
 
 
 
