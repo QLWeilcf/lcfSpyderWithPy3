@@ -7,6 +7,7 @@ now:
 [file](https://github.com/QLWeilcf/lcfSpyderWithPy3/blob/master/weChatFriendsAnaly.py)  &
 [WeChatAnalyReadme](https://github.com/QLWeilcf/lcfSpyderWithPy3/blob/master/WeChatAnalyReadme.md)
 
+- [x] zlCompanySpider.py  (spydyOf)[http://company.zhaopin.com]   Tag:GeoProj
 - [ ] job spider
 - [ ] douban spider
 
