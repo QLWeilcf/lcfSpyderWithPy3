@@ -30,15 +30,15 @@ def industrySpider(t="金融"): #主程序，目前只配置了3个行业的页�
 	page=[[i,i+19] for i in range(1,51,20)] #[[1, 20], [21, 41]……] 因为循环时不取停用词，所以注意20和21的区别
 
 	if t=="互联网":
-		savep = 'L:/GIStrain/DigitalCity/构建特征图层/3产业/互联网页面下载'
+		savep = './zhiliancompanylist/互联网页面下载'
 		for k in page:
 			parseCompanyzl(industry['互联网'], k, savep)
 	elif t=="金融":
-		savep = 'L:/GIStrain/DigitalCity/构建特征图层/3产业/金融页面下载'
+		savep = './zhiliancompanylist/金融页面下载'
 		for k in page:
 			parseCompanyzl(industry['基金'], k, savep)
 	elif t=="文化":
-		savep = 'L:/GIStrain/DigitalCity/构建特征图层/3产业/文化页面下载'
+		savep = './zhiliancompanylist/文化页面下载'
 		for k in page:
 			parseCompanyzl(industry['文化传播'], k, savep)
 	else:
