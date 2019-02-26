@@ -9,7 +9,8 @@ now:
 
 - [x] zlCompanySpider.py  (spydyOf)[http://company.zhaopin.com]   Tag:GeoProj
 - [ ] job spider
-- [ ] douban spider
+- [ ] douban movie spider
+- [ ] douban reading spider：[doubanBlstSpider.ipynb](./doubanBlstSpider.ipynb)
 
 ### Geo Spider
 
